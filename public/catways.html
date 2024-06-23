@@ -11,7 +11,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      fetch('/catways')
+      fetch('/catways')  // Utilisation de l'URL absolue pour '/catways'
         .then(response => response.json())
         .then(data => {
           const catwaysList = document.getElementById('catwaysList');

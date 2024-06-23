@@ -11,12 +11,6 @@ router.get('/', (req, res) => {
   res.render('index');
 });
 
-// Lien vers la documentation de l'API (exemple de route)
-router.get('/api-docs', (req, res) => {
-  // Redirection vers la documentation de l'API (par exemple, Swagger)
-  res.redirect('https://swagger.io');
-});
-
 router.use('/users', userRoute);
 router.use('/auth', authRoute);
 router.use('/dashboard', dashboardRoute);

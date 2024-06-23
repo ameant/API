@@ -8,7 +8,7 @@
 <body>
   <h1>Tableau de bord</h1>
 
-    <!-- Formulaire de création d'utilisateur -->
+  <!-- Formulaire de création d'utilisateur -->
   <form action="/users/add" method="POST">
     <h2>Créer un utilisateur</h2>
     <div>
@@ -167,21 +167,18 @@
   <!-- JavaScript pour modifier l'action des formulaires -->
   <script>
     document.getElementById('editUserForm').addEventListener('submit', function(event) {
-          event.preventDefault();
-          console.log("Modifier un utilisateur - Soumission du formulaire");
-          var form = event.target;
-          var userId = document.getElementById('editUserId').value;
-          form.action = '/users/' + userId;
-          console.log("Nouvelle action du formulaire : " + form.action);
-          form.submit();
-        });
+      event.preventDefault();
+      var form = event.target;
+      var userId = document.getElementById('editUserId').value;
+      form.action = '/users/' + userId;  // Utilisation de l'URL absolue pour '/users/:id'
+      form.submit();
+    });
 
-  
     document.getElementById('deleteUserForm').addEventListener('submit', function(event) {
       event.preventDefault();
       var form = event.target;
       var userId = document.getElementById('deleteUserId').value;
-      form.action = '/users/' + userId;
+      form.action = '/users/' + userId;  // Utilisation de l'URL absolue pour '/users/:id'
       form.submit();
     });
   </script>

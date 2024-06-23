@@ -17,41 +17,11 @@
   {
     "catwayNumber": "CW004",
     "type": "long",
-    "catwayState": "disponible"
-  },
-  {
-    "catwayNumber": "CW004",
-    "type": "court",
     "catwayState": "indisponible"
   },
   {
     "catwayNumber": "CW005",
     "type": "court",
-    "catwayState": "disponible"
-  },
-  {
-    "catwayNumber": "CW006",
-    "type": "long",
-    "catwayState": "disponible"
-  },
-  {
-    "catwayNumber": "CW007",
-    "type": "long",
-    "catwayState": "disponible"
-  },
-  {
-    "catwayNumber": "CW008",
-    "type": "court",
-    "catwayState": "disponible"
-  },
-  {
-    "catwayNumber": "CW009",
-    "type": "court",
-    "catwayState": "disponible"
-  },
-  {
-    "catwayNumber": "CW010",
-    "type": "long",
     "catwayState": "disponible"
   }
 ]

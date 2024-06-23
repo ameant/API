@@ -1,19 +1,23 @@
 const express = require('express');
 const router = express.Router();
 
-const catwayService = require('../services/catways');
+const catwayController = require('../controllers/catways');
+const catwayPrivate = require('../middlewares/private')
 // Catway routes
-router.get('/', catwayService.getCatways);
-router.get('/:id', catwayService.getCatwayById);
-router.post('/', catwayService.addCatway);
-router.patch('/:id', catwayService.updateCatway);
-router.delete('/:id', catwayService.deleteCatway);
+router.get('/', catwayController.getCatways);
+router.get('/:id', catwayController.getCatwayById);
+router.post('/', catwayPrivate.checkJWT, catwayController.addCatway);
+router.patch('/:id', catwayController.updateCatway);
+router.delete('/:id', catwayPrivate.checkJWT, catwayController.deleteCatway);
 
-const reservationService = require('../services/reservations');
+const reservationController = require('../controllers/reservations');
+const reservationPrivate = require('../middlewares/private')
 // Reservation routes (sub-resource of catways)
-router.get('/:id/reservations', reservationService.getReservations);
-router.get('/:id/reservations/:idReservation', reservationService.getReservationById);
-router.post('/:id/reservations', reservationService.addReservation);
-router.delete('/:id/reservations/:idReservation', reservationService.deleteReservation);
+router.get('/:id/reservations', reservationPrivate.checkJWT, reservationController.getReservations);
+router.get('/:id/reservations/:idReservation', reservationController.getReservationById);
+router.post('/:id/reservations', reservationPrivate.checkJWT, reservationController.addReservation);
+router.delete('/:id/reservations/:idReservation', reservationPrivate.checkJWT, reservationController.deleteReservation);
+
+// router.post('/authenticate', userController.authenticate);
 
 module.exports = router;

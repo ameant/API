@@ -12,19 +12,5 @@
     "boatName": "Bateau B",
     "checkIn": "20/07/2024",
     "checkOut": "25/07/2024"
-  },
-  {
-    "catwayNumber": "CW005",
-    "clientName": "Durand",
-    "boatName": "Bateau Z",
-    "checkIn": "30/06/2024",
-    "checkOut": "03/07/2024"
-  },
-  {
-    "catwayNumber": "CW007",
-    "clientName": "Petit",
-    "boatName": "Bateau W",
-    "checkIn": "04/07/2024",
-    "checkOut": "06/07/2024"
   }
 ]
