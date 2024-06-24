@@ -8,8 +8,8 @@
 <body>
   <h1>Tableau de bord</h1>
 
-  <!-- Formulaire de création d'utilisateur -->
-  <form action="/users/add" method="POST">
+    <!-- Formulaire de création d'utilisateur -->
+  <form action="http://localhost:3000/users/add" method="POST">
     <h2>Créer un utilisateur</h2>
     <div>
       <label for="userName">Nom :</label>
@@ -27,7 +27,7 @@
   </form>
 
   <!-- Formulaire de modification d'utilisateur -->
-  <form id="editUserForm" action="/users/:id" method="POST">
+  <form id="editUserForm" action="http://localhost:3000/users/:id" method="POST">
     <h2>Modifier un utilisateur</h2>
     <div>
       <label for="editUserId">ID de l'utilisateur :</label>
@@ -49,7 +49,7 @@
   </form>
 
   <!-- Formulaire de suppression d'utilisateur -->
-  <form id="deleteUserForm" action="/users/:id" method="POST">
+  <form id="deleteUserForm" action="http://localhost:3000/users/:id" method="POST">
     <h2>Supprimer un utilisateur</h2>
     <div>
       <label for="deleteUserId">ID de l'utilisateur :</label>
@@ -58,8 +58,9 @@
     <button type="submit">Supprimer</button>
   </form>
 
-  <!-- Formulaire de création de catway -->
-  <form action="/catways" method="POST">
+
+    <!-- Formulaire de création de catway -->
+  <form action="http://localhost:3000/catways" method="POST">
     <h2>Créer un catway</h2>
     <div>
       <label for="catwayNumber">Catway numéro :</label>
@@ -77,11 +78,11 @@
   </form>
 
   <!-- Formulaire de modification de catway -->
-  <form action="/catways/:id" method="POST">
+  <form id="editCatwayForm" action="http://localhost:3000/catways/:id" method="POST">
     <h2>Modifier un catway</h2>
     <div>
-      <label for="catwayId">ID du catway :</label>
-      <input type="text" id="catwayId" name="id" required>
+      <label for="editCatwayId">ID du catway :</label>
+      <input type="text" id="editCatwayId" name="id" required>
     </div>
     <div>
       <label for="newType">Nouveau type :</label>
@@ -95,7 +96,7 @@
   </form>
 
   <!-- Formulaire de suppression de catway -->
-  <form action="/catways/:id" method="POST">
+  <form id="deleteCatwayForm" action="http://localhost:3000/catways/:id" method="POST">
     <h2>Supprimer un catway</h2>
     <div>
       <label for="deleteCatwayId">ID du catway :</label>
@@ -105,17 +106,17 @@
   </form>
 
   <!-- Formulaire d'affichage des détails de catway -->
-  <form action="/catways/:id" method="POST">
+  <form id="detailCatwayForm" action="http://localhost:3000/catways/:id" method="POST">
     <h2>Afficher les détails d'un catway</h2>
     <div>
-      <label for="catwayDetailId">ID du catway :</label>
-      <input type="text" id="catwayDetailId" name="id" required>
+      <label for="detailCatwayId">ID du catway :</label>
+      <input type="text" id="detailCatwayId" name="id" required>
     </div>
     <button type="submit">Afficher</button>
   </form>
 
-  <!-- Formulaire d'enregistrement d'une réservation -->
-  <form action="/catways/:id/reservations" method="POST">
+    <!-- Formulaire d'enregistrement d'une réservation -->
+  <form action="http://localhost:3000/catways/:id/reservations" method="POST">
     <h2>Enregistrer une réservation</h2>
     <div>
       <label for="reservationCatwayNumber">Catway numéro :</label>
@@ -141,7 +142,7 @@
   </form>
 
   <!-- Formulaire de suppression de réservation -->
-  <form action="/catways/:id/reservations/:idReservation" method="POST">
+  <form action="http://localhost:3000/catways/:id/reservations/:idReservation" method="POST">
     <h2>Supprimer une réservation</h2>
     <div>
       <label for="deleteReservationId">ID de la réservation :</label>
@@ -151,7 +152,7 @@
   </form>
 
   <!-- Formulaire d'affichage des détails de réservation -->
-  <form action="/catways/:id/reservations/:idReservation" method="POST">
+  <form action="http://localhost:3000/catways/:id/reservations/:idReservation" method="POST">
     <h2>Afficher les détails d'une réservation</h2>
     <div>
       <label for="reservationDetailId">ID de la réservation :</label>
@@ -161,24 +162,48 @@
   </form>
 
   <!-- Liens pour accéder aux listes -->
-  <p><a href="/catways">Accéder à la liste des catways</a></p>
-  <p><a href="/catways/:id/reservations">Accéder à la liste des réservations</a></p>
+  <p><a href="http://localhost:3000/catways">Accéder à la liste des catways</a></p>
+  <p><a href="http://localhost:3000/catways/:id/reservations">Accéder à la liste des réservations</a></p>
 
-  <!-- JavaScript pour modifier l'action des formulaires -->
+    <!-- JavaScript pour modifier l'action des formulaires -->
   <script>
     document.getElementById('editUserForm').addEventListener('submit', function(event) {
       event.preventDefault();
-      var form = event.target;
-      var userId = document.getElementById('editUserId').value;
-      form.action = '/users/' + userId;  // Utilisation de l'URL absolue pour '/users/:id'
+      let form = event.target;
+      let userId = document.getElementById('editUserId').value;
+      form.action = 'http://localhost:3000/users/' + userId;
       form.submit();
     });
 
     document.getElementById('deleteUserForm').addEventListener('submit', function(event) {
       event.preventDefault();
-      var form = event.target;
-      var userId = document.getElementById('deleteUserId').value;
-      form.action = '/users/' + userId;  // Utilisation de l'URL absolue pour '/users/:id'
+      let form = event.target;
+      let userId = document.getElementById('deleteUserId').value;
+      form.action = 'http://localhost:3000/users/' + userId;
+      form.submit();
+    });
+
+    document.getElementById('editCatwayForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      let form = event.target;
+      let catwayId = document.getElementById('editCatwayId').value;
+      form.action = 'http://localhost:3000/catways/' + catwayId;
+      form.submit();
+    });
+
+    document.getElementById('deleteCatwayForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      let form = event.target;
+      let catwayId = document.getElementById('deleteCatwayId').value;
+      form.action = 'http://localhost:3000/catways/' + catwayId;
+      form.submit();
+    });
+
+    document.getElementById('detailCatwayForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      let form = event.target;
+      let catwayId = document.getElementById('detailCatwayId').value;
+      form.action = 'http://localhost:3000/catways/' + catwayId;
       form.submit();
     });
   </script>

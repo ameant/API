@@ -18,10 +18,5 @@
     "catwayNumber": "CW004",
     "type": "long",
     "catwayState": "indisponible"
-  },
-  {
-    "catwayNumber": "CW005",
-    "type": "court",
-    "catwayState": "disponible"
   }
 ]

@@ -1,6 +1,6 @@
 const Reservation = require("../models/reservation");
 
-exports.getReservations = async (req, res, next) => {
+exports.getReservations = async (req, res) => {
   try {
     const reservations = await Reservation.find();
     res.status(200).send(reservations);
@@ -9,7 +9,7 @@ exports.getReservations = async (req, res, next) => {
   }
 };
 
-exports.getReservationById = async (req, res, next) => {
+exports.getReservationById = async (req, res) => {
   const id = req.params.id;
 
   try {
@@ -19,13 +19,13 @@ exports.getReservationById = async (req, res, next) => {
       return res.status(200).json(reservation);
     }
 
-    return res.status(404).json("reservation_not_found");
+    return res.status(404).json("Réservation non toruvée");
   } catch (error) {
     return res.status(501).json(error);
   }
 };
 
-exports.addReservation = async (req, res, next) => {
+exports.addReservation = async (req, res) => {
   const temp = {
     catwayNumber: req.body.catwayNumber,
     clientName: req.body.clientName,
@@ -43,13 +43,13 @@ exports.addReservation = async (req, res, next) => {
   }
 };
 
-exports.deleteReservation = async (req, res, next) => {
+exports.deleteReservation = async (req, res) => {
   const id = req.params.id;
 
   try {
     await Reservation.deleteOne({ _id: id });
 
-    return res.status(204).json("delete_ok");
+    return res.status(204).json("Réservation supprimée");
   } catch (error) {
     return res.status(501).json(error);
   }

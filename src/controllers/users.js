@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 
-exports.addUser = async (req, res, next) => {
+exports.addUser = async (req, res) => {
   const temp = {
     name: req.body.name,
     email: req.body.email,
@@ -17,7 +17,7 @@ exports.addUser = async (req, res, next) => {
   }
 };
 
-exports.updateUser = async (req, res, next) => {
+exports.updateUser = async (req, res) => {
   const id = req.params.id;
   const temp = {
     name: req.body.name,
@@ -39,25 +39,25 @@ exports.updateUser = async (req, res, next) => {
       return res.status(201).json(user);
     }
 
-    return res.status(404).json("user_not_found");
+    return res.status(404).json("Utilisateur non trouvé");
   } catch (error) {
     return res.status(501).json(error);
   }
 };
 
-exports.deleteUser = async (req, res, next) => {
+exports.deleteUser = async (req, res) => {
   const id = req.params.id;
 
   try {
-    await User.deleteOne({ _id: id });
+    await User.findByIdAndDelete(id);
 
-    return res.status(204).json("delete_ok");
+    return res.status(204).json("Utilisateur supprimé");
   } catch (error) {
     return res.status(501).json(error);
   }
 };
 
-exports.authenticate = async (req, res, next) => {
+exports.authenticate = async (req, res) => {
   const { email, password } = req.body;
 
   try {

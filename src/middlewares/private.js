@@ -1,29 +1,26 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const SECRET_KEY = process.env.SECRET_KEY;
 
-exports.checkJWT = (req, res, next) => {
-  let token = req.headers['x-access-token'] || req.headers['authorization'];
-
-  if (token && token.startsWith('Bearer ')) {
-    token = token.slice(7, token.length);
-  }
+exports.checkJWT = async (req, res, next) => {
+  const token = req.cookies.token;
 
   if (token) {
-    jwt.verify(token, SECRET_KEY, async (err, decoded) => {
-      if (err) {
-        return res.status(401).json({ message: 'Token invalide' });
-      } else {
-        const user = await User.findById(decoded.userId);
-        if (!user) {
-          return res.status(404).json({ message: 'Utilisateur non trouvé' });
-        }
+    try {
+      const decode = jwt.verify(token, process.env.SECRET_KEY);
+      const user = await User.findById(decode.userId);
 
-        req.user = user;
-        next();
+      if (!user) {
+        return res.status(401).json({ success: false, message: 'Accès non autorisé' });
       }
-    });
+
+      req.user = user;
+      next();
+    } catch (error) {
+      console.error('Erreur de vérification du token :', error);
+      res.status(401).json({ success: false, message: 'Accès non autorisé' });
+    }
   } else {
-    return res.status(401).json({ message: 'Token requis' });
+    console.log('Token manquant dans les cookies');
+    res.status(401).json({ success: false, message: 'Accès non autorisé' });
   }
 };
