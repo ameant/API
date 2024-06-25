@@ -3,11 +3,19 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const mongodb = require("./db/mongo");
 require('dotenv').config();
+const cors = require("cors");
 
 // Initialisation de la connexion à MongoDB
 mongodb.initClientDbConnection();
 
 const app = express();
+
+var corsOptions = {
+    origin: "http://localhost:3001",
+    credentials: true
+  };
+
+app.use(cors(corsOptions));
 
 // Middleware pour le corps des requêtes
 app.use(express.json());

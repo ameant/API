@@ -1,5 +1,8 @@
 const Catway = require("../models/catway");
 
+/**
+ * 
+ */
 exports.getCatways = async (req, res) => {
   try {
     const catways = await Catway.find();
