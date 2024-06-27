@@ -8,12 +8,7 @@ router.post('/login', async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(401).json({ message: 'Email ou mot de passe incorrect' });
-    }
-
-    if (user.password !== password) {
+    if (!user || user.password !== password) {
       return res.status(401).json({ message: 'Email ou mot de passe incorrect' });
     }
 
@@ -21,13 +16,9 @@ router.post('/login', async (req, res) => {
       expiresIn: '1d',
     });
 
-    // Stocker le token dans un cookie HTTP
     res.cookie('token', token, { httpOnly: true });
-
-    // Rediriger vers le tableau de bord
-    res.redirect('/dashboard');
+    res.status(200).json({ message: 'Connexion réussie', token });
   } catch (err) {
-    console.error('Erreur lors de l\'authentification :', err);
     res.status(500).json({ message: 'Erreur du serveur lors de l\'authentification' });
   }
 });

@@ -1,64 +1,194 @@
 import React, { useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const [userData, setUserData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    id: ''
+  const [userFormData, setUserFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [editUserFormData, setEditUserFormData] = useState({
+    id: "",
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [deleteUserFormData, setDeleteUserFormData] = useState({ id: "" });
+  const [catwayFormData, setCatwayFormData] = useState({
+    id: "",
+    catwayNumber: "",
+    type: "",
+    catwayState: "",
+  });
+  const [reservationFormData, setReservationFormData] = useState({
+    id: "",
+    catwayNumber: "",
+    clientName: "",
+    boatName: "",
+    checkIn: "",
+    checkOut: "",
   });
 
-  const [catwayData, setCatwayData] = useState({
-    catwayNumber: '',
-    type: '',
-    catwayState: '',
-    id: ''
-  });
+  const navigate = useNavigate();
 
-  const [reservationData, setReservationData] = useState({
-    catwayNumber: '',
-    clientName: '',
-    boatName: '',
-    checkIn: '',
-    checkOut: '',
-    reservationId: ''
-  });
-
-  const handleUserChange = (e) => {
-    setUserData({
-      ...userData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleCatwayChange = (e) => {
-    setCatwayData({
-      ...catwayData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleReservationChange = (e) => {
-    setReservationData({
-      ...reservationData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = async (e, url, data) => {
-    e.preventDefault();
+  const handleCreateUser = async (event) => {
+    event.preventDefault();
     try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+      const token = Cookies.get("token");
+      await axios.post("http://localhost:3000/users/add", userFormData, {
+        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
-      if (!response.ok) throw new Error('Error in request');
-      console.log('Request successful');
+      alert(`Création effectuée`);
     } catch (error) {
-      console.error(error);
+      alert("Erreur lors de la création");
+    }
+  };
+
+  const handleUpdateUser = async (event) => {
+    event.preventDefault();
+    const { id } = editUserFormData;
+    if (!id) return alert("ID de l'utilisateur manquant");
+
+    try {
+      await axios.put(`http://localhost:3000/users/${id}`, editUserFormData);
+      alert(`Modification effectuée`);
+    } catch (error) {
+      alert("Erreur lors de la modification");
+    }
+  };
+
+  const handleDeleteUser = async (event) => {
+    event.preventDefault();
+    const { id } = deleteUserFormData;
+    if (!id) return alert("ID de l'utilisateur manquant");
+
+    try {
+      const token = Cookies.get("token");
+      await axios.delete(`http://localhost:3000/users/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
+      });
+      alert(`Suppression effectuée`);
+    } catch (error) {
+      alert("Erreur lors de la suppression");
+    }
+  };
+
+  const handleCreateCatway = async (event) => {
+    event.preventDefault();
+    try {
+      const token = Cookies.get("token");
+      await axios.post("http://localhost:3000/catways", catwayFormData, {
+        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
+      });
+      alert(`Catway créé`);
+    } catch (error) {
+      alert("Erreur lors de la création du catway");
+    }
+  };
+
+  const handleUpdateCatway = async (event) => {
+    event.preventDefault();
+    const { id } = catwayFormData;
+    if (!id) return alert("ID du catway manquant");
+
+    try {
+      await axios.put(`http://localhost:3000/catways/${id}`, catwayFormData);
+      alert(`Catway mis à jour`);
+    } catch (error) {
+      alert("Erreur lors de la mise à jour du catway");
+    }
+  };
+
+  const handleDeleteCatway = async (event) => {
+    event.preventDefault();
+    const { id } = catwayFormData;
+    if (!id) return alert("ID du catway manquant");
+
+    try {
+      const token = Cookies.get("token");
+      await axios.delete(`http://localhost:3000/catways/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
+      });
+      alert(`Catway supprimé`);
+    } catch (error) {
+      alert("Erreur lors de la suppression du catway");
+    }
+  };
+
+  const handleDetailCatway = async (event) => {
+    event.preventDefault();
+    const { id } = catwayFormData;
+    if (!id) return alert("ID du catway manquant");
+
+    try {
+      const response = await axios.get(`http://localhost:3000/catways/${id}`);
+      if (response.data) {
+        navigate(`/catways/${id}`);
+      } else {
+        alert("Aucun catway trouvé avec l'ID fourni");
+      }
+    } catch (error) {
+      alert("Erreur lors de l'affichage des détails du catway");
+    }
+  };
+
+  const handleCreateReservation = async (event) => {
+    event.preventDefault();
+    try {
+      const token = Cookies.get("token");
+      await axios.post(
+        "http://localhost:3000/reservations",
+        reservationFormData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        }
+      );
+      alert(`Réservation créée`);
+    } catch (error) {
+      alert("Erreur lors de la création de la réservation");
+    }
+  };
+
+  const handleDeleteReservation = async (event) => {
+    event.preventDefault();
+    const { id } = reservationFormData;
+    if (!id) return alert("ID de la réservation manquant");
+
+    try {
+      const token = Cookies.get("token");
+      await axios.delete(`http://localhost:3000/reservations/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
+      });
+      alert(`Réservation supprimée`);
+    } catch (error) {
+      alert("Erreur lors de la suppression de la réservation");
+    }
+  };
+
+  const handleDetailReservation = async (event) => {
+    event.preventDefault();
+    const { id } = reservationFormData;
+    if (!id) return alert("ID de la réservation manquant");
+
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/reservations/${id}`
+      );
+      if (response.data) {
+        navigate(`/catways/reservations/${id}`);
+      } else {
+        alert("Aucune réservation trouvée avec l'ID fourni");
+      }
+    } catch (error) {
+      alert("Erreur lors de l'affichage des détails de la réservation");
     }
   };
 
@@ -66,161 +196,330 @@ const Dashboard = () => {
     <div>
       <h1>Tableau de bord</h1>
 
-      {/* Formulaire de création d'utilisateur */}
-      <form onSubmit={(e) => handleSubmit(e, 'http://localhost:3001/users/add', userData)}>
+      {/* Formulaire de création d'un utilisateur */}
+      <form onSubmit={handleCreateUser}>
         <h2>Créer un utilisateur</h2>
-        <div>
-          <label htmlFor="userName">Nom :</label>
-          <input type="text" id="userName" name="name" value={userData.name} onChange={handleUserChange} required />
-        </div>
-        <div>
-          <label htmlFor="userEmail">Email :</label>
-          <input type="email" id="userEmail" name="email" value={userData.email} onChange={handleUserChange} required />
-        </div>
-        <div>
-          <label htmlFor="userPassword">Mot de passe :</label>
-          <input type="password" id="userPassword" name="password" value={userData.password} onChange={handleUserChange} required />
-        </div>
+        <input
+          type="text"
+          name="name"
+          placeholder="Nom"
+          onChange={(e) =>
+            setUserFormData({ ...userFormData, name: e.target.value })
+          }
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          onChange={(e) =>
+            setUserFormData({ ...userFormData, email: e.target.value })
+          }
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Mot de passe"
+          onChange={(e) =>
+            setUserFormData({ ...userFormData, password: e.target.value })
+          }
+        />
         <button type="submit">Créer</button>
       </form>
 
-      {/* Formulaire de modification d'utilisateur */}
-      <form onSubmit={(e) => handleSubmit(e, `http://localhost:3001/users/${userData.id}`, userData)}>
+      {/* Formulaire de modification d'un utilisateur */}
+      <form onSubmit={handleUpdateUser}>
         <h2>Modifier un utilisateur</h2>
-        <div>
-          <label htmlFor="editUserId">ID de l'utilisateur :</label>
-          <input type="text" id="editUserId" name="id" value={userData.id} onChange={handleUserChange} required />
-        </div>
-        <div>
-          <label htmlFor="editUserName">Nouveau nom :</label>
-          <input type="text" id="editUserName" name="name" value={userData.name} onChange={handleUserChange} required />
-        </div>
-        <div>
-          <label htmlFor="editUserEmail">Nouvel email :</label>
-          <input type="email" id="editUserEmail" name="email" value={userData.email} onChange={handleUserChange} required />
-        </div>
-        <div>
-          <label htmlFor="editUserPassword">Nouveau mot de passe :</label>
-          <input type="password" id="editUserPassword" name="password" value={userData.password} onChange={handleUserChange} required />
-        </div>
+        <input
+          type="text"
+          name="id"
+          placeholder="ID"
+          onChange={(e) =>
+            setEditUserFormData({ ...editUserFormData, id: e.target.value })
+          }
+        />
+        <input
+          type="text"
+          name="name"
+          placeholder="Nom"
+          onChange={(e) =>
+            setEditUserFormData({ ...editUserFormData, name: e.target.value })
+          }
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          onChange={(e) =>
+            setEditUserFormData({ ...editUserFormData, email: e.target.value })
+          }
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Mot de passe"
+          onChange={(e) =>
+            setEditUserFormData({
+              ...editUserFormData,
+              password: e.target.value,
+            })
+          }
+        />
         <button type="submit">Modifier</button>
       </form>
 
-      {/* Formulaire de suppression d'utilisateur */}
-      <form onSubmit={(e) => handleSubmit(e, `http://localhost:3001/users/${userData.id}`, { id: userData.id })}>
+      {/* Formulaire de suppression d'un utilisateur */}
+      <form onSubmit={handleDeleteUser}>
         <h2>Supprimer un utilisateur</h2>
-        <div>
-          <label htmlFor="deleteUserId">ID de l'utilisateur :</label>
-          <input type="text" id="deleteUserId" name="id" value={userData.id} onChange={handleUserChange} required />
-        </div>
+        <input
+          type="text"
+          name="id"
+          placeholder="ID"
+          onChange={(e) => setDeleteUserFormData({ id: e.target.value })}
+        />
         <button type="submit">Supprimer</button>
       </form>
 
-      {/* Formulaire de création de catway */}
-      <form onSubmit={(e) => handleSubmit(e, 'http://localhost:3001/catways', catwayData)}>
+      {/* Formulaire de création d'un catway */}
+      <form onSubmit={handleCreateCatway}>
         <h2>Créer un catway</h2>
-        <div>
-          <label htmlFor="catwayNumber">Catway numéro :</label>
-          <input type="text" id="catwayNumber" name="catwayNumber" value={catwayData.catwayNumber} onChange={handleCatwayChange} required />
-        </div>
-        <div>
-          <label htmlFor="catwayType">Type :</label>
-          <input type="text" id="catwayType" name="type" value={catwayData.type} onChange={handleCatwayChange} required />
-        </div>
-        <div>
-          <label htmlFor="catwayState">Etat :</label>
-          <input type="text" id="catwayState" name="catwayState" value={catwayData.catwayState} onChange={handleCatwayChange} required />
-        </div>
+        <input
+          type="text"
+          name="catwayNumber"
+          placeholder="Numéro du catway"
+          onChange={(e) =>
+            setCatwayFormData({
+              ...catwayFormData,
+              catwayNumber: e.target.value,
+            })
+          }
+        />
+        <input
+          type="text"
+          name="type"
+          placeholder="Type"
+          onChange={(e) =>
+            setCatwayFormData({
+              ...catwayFormData,
+              type: e.target.value,
+            })
+          }
+        />
+        <input
+          type="text"
+          name="catwayState"
+          placeholder="État"
+          onChange={(e) =>
+            setCatwayFormData({
+              ...catwayFormData,
+              catwayState: e.target.value,
+            })
+          }
+        />
         <button type="submit">Créer</button>
       </form>
 
-      {/* Formulaire de modification de catway */}
-      <form onSubmit={(e) => handleSubmit(e, `http://localhost:3001/catways/${catwayData.id}`, catwayData)}>
+      {/* Formulaire de mise à jour d'un Catway */}
+      <form onSubmit={handleUpdateCatway}>
         <h2>Modifier un catway</h2>
-        <div>
-          <label htmlFor="editCatwayId">ID du catway :</label>
-          <input type="text" id="editCatwayId" name="id" value={catwayData.id} onChange={handleCatwayChange} required />
-        </div>
-        <div>
-          <label htmlFor="newType">Nouveau type :</label>
-          <input type="text" id="newType" name="type" value={catwayData.type} onChange={handleCatwayChange} required />
-        </div>
-        <div>
-          <label htmlFor="newState">Nouvel état :</label>
-          <input type="text" id="newState" name="catwayState" value={catwayData.catwayState} onChange={handleCatwayChange} required />
-        </div>
+        <input
+          type="text"
+          name="id"
+          placeholder="ID"
+          onChange={(e) =>
+            setCatwayFormData({
+              ...catwayFormData,
+              id: e.target.value,
+            })
+          }
+        />
+        <input
+          type="text"
+          name="catwayNumber"
+          placeholder="Nouveau numéro"
+          onChange={(e) =>
+            setCatwayFormData({
+              ...catwayFormData,
+              catwayNumber: e.target.value,
+            })
+          }
+        />
+        <input
+          type="text"
+          name="type"
+          placeholder="Nouveau type"
+          onChange={(e) =>
+            setCatwayFormData({
+              ...catwayFormData,
+              type: e.target.value,
+            })
+          }
+        />
+        <input
+          type="text"
+          name="catwayState"
+          placeholder="Nouvel état"
+          onChange={(e) =>
+            setCatwayFormData({
+              ...catwayFormData,
+              catwayState: e.target.value,
+            })
+          }
+        />
         <button type="submit">Modifier</button>
       </form>
 
-      {/* Formulaire de suppression de catway */}
-      <form onSubmit={(e) => handleSubmit(e, `http://localhost:3001/catways/${catwayData.id}`, { id: catwayData.id })}>
+      {/* Formulaire de suppression d'un catway */}
+      <form onSubmit={handleDeleteCatway}>
         <h2>Supprimer un catway</h2>
-        <div>
-          <label htmlFor="deleteCatwayId">ID du catway :</label>
-          <input type="text" id="deleteCatwayId" name="id" value={catwayData.id} onChange={handleCatwayChange} required />
-        </div>
+        <input
+          type="text"
+          name="id"
+          placeholder="ID"
+          onChange={(e) =>
+            setCatwayFormData({
+              ...catwayFormData,
+              id: e.target.value,
+            })
+          }
+        />
         <button type="submit">Supprimer</button>
       </form>
 
       {/* Formulaire d'affichage des détails de catway */}
-      <form onSubmit={(e) => handleSubmit(e, `http://localhost:3001/catways/${catwayData.id}`, { id: catwayData.id })}>
+      <form onSubmit={handleDetailCatway}>
         <h2>Afficher les détails d'un catway</h2>
-        <div>
-          <label htmlFor="detailCatwayId">ID du catway :</label>
-          <input type="text" id="detailCatwayId" name="id" value={catwayData.id} onChange={handleCatwayChange} required />
-        </div>
-        <button type="submit">Afficher</button>
+        <input
+          type="text"
+          name="id"
+          placeholder="ID"
+          onChange={(e) =>
+            setCatwayFormData({
+              ...catwayFormData,
+              id: e.target.value,
+            })
+          }
+        />
+        <button
+          type="submit"
+          onClick={() => navigate(`/catways/${catwayFormData.id}`)}
+        >
+          Afficher
+        </button>
       </form>
 
-      {/* Formulaire d'enregistrement d'une réservation */}
-      <form onSubmit={(e) => handleSubmit(e, `http://localhost:3001/catways/${reservationData.catwayNumber}/reservations`, reservationData)}>
-        <h2>Enregistrer une réservation</h2>
-        <div>
-          <label htmlFor="reservationCatwayNumber">Catway numéro :</label>
-          <input type="text" id="reservationCatwayNumber" name="catwayNumber" value={reservationData.catwayNumber} onChange={handleReservationChange} required />
-        </div>
-        <div>
-          <label htmlFor="reservationClientName">Nom du client :</label>
-          <input type="text" id="reservationClientName" name="clientName" value={reservationData.clientName} onChange={handleReservationChange} required />
-        </div>
-        <div>
-          <label htmlFor="reservationBoatName">Nom du bateau :</label>
-          <input type="text" id="reservationBoatName" name="boatName" value={reservationData.boatName} onChange={handleReservationChange} required />
-        </div>
-        <div>
-          <label htmlFor="reservationCheckIn">Du :</label>
-          <input type="text" placeholder="Format dd/mm/aaaa" id="reservationCheckIn" name="checkIn" value={reservationData.checkIn} onChange={handleReservationChange} required />
-        </div>
-        <div>
-          <label htmlFor="reservationCheckOut">Au :</label>
-          <input type="text" placeholder="Format dd/mm/aaaa" id="reservationCheckOut" name="checkOut" value={reservationData.checkOut} onChange={handleReservationChange} required />
-        </div>
-        <button type="submit">Enregistrer</button>
+      {/* Formulaire de création d'une réservation */}
+      <form onSubmit={handleCreateReservation}>
+        <h2>Créer une réservation</h2>
+        <input
+          type="text"
+          name="catwayNumber"
+          placeholder="Numéro du catway"
+          onChange={(e) =>
+            setReservationFormData({
+              ...reservationFormData,
+              catwayNumber: e.target.value,
+            })
+          }
+        />
+        <input
+          type="text"
+          name="clientName"
+          placeholder="Nom du client"
+          onChange={(e) =>
+            setReservationFormData({
+              ...reservationFormData,
+              clientName: e.target.value,
+            })
+          }
+        />
+        <input
+          type="text"
+          name="boatName"
+          placeholder="Nom du bateau"
+          onChange={(e) =>
+            setReservationFormData({
+              ...reservationFormData,
+              boatName: e.target.value,
+            })
+          }
+        />
+        <input
+          type="text"
+          name="checkIn"
+          placeholder="Du"
+          onChange={(e) =>
+            setReservationFormData({
+              ...reservationFormData,
+              checkIn: e.target.value,
+            })
+          }
+        />
+        <input
+          type="text"
+          name="checkOut"
+          placeholder="Au"
+          onChange={(e) =>
+            setReservationFormData({
+              ...reservationFormData,
+              checkOut: e.target.value,
+            })
+          }
+        />
+        <button type="submit">Créer</button>
       </form>
 
-      {/* Formulaire de suppression de réservation */}
-      <form onSubmit={(e) => handleSubmit(e, `http://localhost:3001/catways/${reservationData.catwayNumber}/reservations/${reservationData.reservationId}`, { reservationId: reservationData.reservationId })}>
+      {/* Formulaire de suppression d'une réservation */}
+      <form onSubmit={handleDeleteReservation}>
         <h2>Supprimer une réservation</h2>
-        <div>
-          <label htmlFor="deleteReservationId">ID de la réservation :</label>
-          <input type="text" id="deleteReservationId" name="reservationId" value={reservationData.reservationId} onChange={handleReservationChange} required />
-        </div>
+        <input
+          type="text"
+          name="id"
+          placeholder="ID"
+          onChange={(e) =>
+            setReservationFormData({
+              ...reservationFormData,
+              id: e.target.value,
+            })
+          }
+        />
         <button type="submit">Supprimer</button>
       </form>
 
-      {/* Formulaire d'affichage des détails de réservation */}
-      <form onSubmit={(e) => handleSubmit(e, `http://localhost:3001/catways/${reservationData.catwayNumber}/reservations/${reservationData.reservationId}`, { reservationId: reservationData.reservationId })}>
+      {/* Formulaire d'affichage des détails d'une réservation */}
+      <form onSubmit={handleDetailReservation}>
         <h2>Afficher les détails d'une réservation</h2>
-        <div>
-          <label htmlFor="reservationDetailId">ID de la réservation :</label>
-          <input type="text" id="reservationDetailId" name="reservationId" value={reservationData.reservationId} onChange={handleReservationChange} required />
-        </div>
-        <button type="submit">Afficher</button>
+        <input
+          type="text"
+          name="id"
+          placeholder="ID"
+          onChange={(e) =>
+            setReservationFormData({
+              ...reservationFormData,
+              id: e.target.value,
+            })
+          }
+        />
+        <button
+          type="submit"
+          onClick={() =>
+            navigate(`/reservations/${reservationFormData.id}`)
+          }
+        >
+          Afficher
+        </button>
       </form>
 
       {/* Liens pour accéder aux listes */}
-      <p><a href="http://localhost:3001/catways">Accéder à la liste des catways</a></p>
-      <p><a href="http://localhost:3001/reservations">Accéder à la liste des réservations</a></p>
+      <p>
+        <a href="http://localhost:3000/catways">
+          Accéder à la liste des catways
+        </a>
+      </p>
+      <p>
+        <a href="http://localhost:3000/reservations">
+          Accéder à la liste des réservations
+        </a>
+      </p>
     </div>
   );
 };

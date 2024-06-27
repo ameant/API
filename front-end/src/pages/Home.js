@@ -1,33 +1,27 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3001/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-        credentials: 'include', // Include cookies in the request
-      });
+      const response = await axios.post('http://localhost:3000/auth/login', 
+        { email, password },
+        { withCredentials: true }
+      );
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Login successful:', data.message);
-        window.location.href = '/dashboard'; // Or use React Router for navigation
+      if (response.status === 200) {
+        navigate('/dashboard');
       } else {
-        const errorData = await response.json();
-        console.error('Error:', errorData.message);
-        alert(errorData.message);
+        alert(response.data.message);
       }
     } catch (error) {
-      console.error('Error:', error);
       alert('Une erreur s\'est produite lors de la connexion.');
     }
   };
@@ -65,7 +59,6 @@ const Home = () => {
         <button type="submit">Se connecter</button>
       </form>
 
-      {/* <!-- Lien vers la documentation de l'API --> */}
       <p><a href="/docs">Voir la documentation de l'API</a></p>
     </div>
   );

@@ -1,30 +1,20 @@
 import React, { useState, useEffect } from "react";
-import http from "../http-common";
+import axios from "axios";
 
 const Catways = () => {
   const [catways, setCatways] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
-      setError(null);
       try {
-        const response = await http.get("/catways");
+        const response = await axios.get("/catways");
         setCatways(response.data);
       } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
+        alert("Erreur lors de l'affichage de la liste des catways");
       }
     };
     fetchData();
   }, []);
-
-  if (isLoading) return <div>Chargement en cours...</div>;
-
-  if (error) return <div>Erreur: {error.message}</div>;
 
   return (
     <div>

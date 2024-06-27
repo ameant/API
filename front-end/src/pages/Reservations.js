@@ -1,30 +1,20 @@
 import React, { useState, useEffect } from "react";
-import http from "../http-common";
+import axios from 'axios';
 
 const Reservations = () => {
   const [reservations, setReservations] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
-      setError(null);
       try {
-        const response = await http.get("/reservations");
+        const response = await axios.get("/reservations");
         setReservations(response.data);
       } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
+        alert("Erreur lors de l'affichage de la liste des réservations");
       }
     };
     fetchData();
   }, []);
-
-  if (isLoading) return <div>Chargement en cours...</div>;
-
-  if (error) return <div>Erreur: {error.message}</div>;
 
   return (
     <div>
@@ -32,7 +22,7 @@ const Reservations = () => {
       <ul>
         {reservations.map((reservation) => (
           <li key={reservation._id}>
-            {reservation.catwayNumber} ({reservation.clientName}):
+            {reservation.catwayNumber} {reservation.clientName}
             {reservation.boatName} du {reservation.checkIn} au
             {reservation.checkOut}
           </li>

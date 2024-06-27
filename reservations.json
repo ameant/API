@@ -3,14 +3,14 @@
     "catwayNumber": "CW002",
     "clientName": "Dupont",
     "boatName": "Bateau A",
-    "checkIn": "10/07/2024",
-    "checkOut": "15/07/2024"
+    "checkIn": "10/06/2024",
+    "checkOut": "15/08/2024"
   },
   {
     "catwayNumber": "CW004",
     "clientName": "Martin",
     "boatName": "Bateau B",
-    "checkIn": "20/07/2024",
-    "checkOut": "25/07/2024"
+    "checkIn": "20/05/2024",
+    "checkOut": "25/09/2024"
   }
 ]

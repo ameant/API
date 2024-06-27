@@ -6,6 +6,7 @@ const userRoute = require("./users");
 const authRoute = require("./auth");
 const dashboardRoute = require("./dashboard");
 const catwayRoute = require("./catways");
+const reservationRoute = require("./reservations");
 
 // Page d'accueil
 router.get("/", (req, res) => {
@@ -23,5 +24,6 @@ router.use("/users", userRoute);
 router.use("/auth", authRoute);
 router.use("/dashboard", dashboardRoute);
 router.use("/catways", catwayRoute);
+router.use("/reservations", reservationRoute);
 
 module.exports = router;

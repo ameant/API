@@ -6,7 +6,7 @@ const userController = require("../controllers/users");
 const userPrivate = require('../middlewares/private');
 
 router.post("/add", userPrivate.checkJWT, userController.addUser);
-router.patch("/:id", userController.updateUser);
+router.put("/:id", userController.updateUser);
 router.delete("/:id", userPrivate.checkJWT, userController.deleteUser);
 
 router.post('/authenticate', userController.authenticate);

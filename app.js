@@ -10,12 +10,10 @@ mongodb.initClientDbConnection();
 
 const app = express();
 
-var corsOptions = {
-    origin: "http://localhost:3001",
-    credentials: true
-  };
-
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: 'http://localhost:3001',
+  credentials: true
+}));
 
 // Middleware pour le corps des requêtes
 app.use(express.json());
