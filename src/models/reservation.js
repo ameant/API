@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Catway = require('./catway')
 
 const Reservation = new Schema({
   catwayNumber: {

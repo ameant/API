@@ -12,6 +12,6 @@ router.put("/:id", catwayController.updateCatway);
 router.patch("/:id", catwayController.updateCatway);
 router.delete("/:id", catwayPrivate.checkJWT, catwayController.deleteCatway);
 
-router.post('/authenticate', userController.authenticate);
+router.post("/authenticate", userController.authenticate);
 
 module.exports = router;

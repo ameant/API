@@ -1,5 +1,4 @@
 const express = require("express");
-const path = require("path");
 const cookieParser = require("cookie-parser");
 const mongodb = require("./db/mongo");
 require('dotenv').config();
@@ -19,9 +18,6 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-// Fichiers statiques
-app.use(express.static(path.join(__dirname, "public")));
 
 // Route de la page d'accueil
 const indexRouter = require("./src/routes/index");

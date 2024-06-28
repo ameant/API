@@ -5,7 +5,6 @@ const userController = require("../controllers/users");
 const reservationController = require("../controllers/reservations");
 const reservationPrivate = require("../middlewares/private");
 
-
 router.get(
   "/",
   reservationPrivate.checkJWT,

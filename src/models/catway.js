@@ -1,4 +1,3 @@
-// models/catway.js
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -22,4 +21,4 @@ const Catway = new Schema({
   },
 });
 
-module.exports = mongoose.model('Catway', Catway);
+module.exports = mongoose.model("Catway", Catway);
