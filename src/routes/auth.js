@@ -3,6 +3,11 @@ const router = express.Router();
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 
+/**
+ * Gestionnaire de route pour la connexion
+ * @param {express.Request} req Objet de requête Express contenant les informations d'identification de l'utilisateur
+ * @param {express.Response} res Objet de réponse Express utilisé pour envoyer les réponses de connexion
+ */
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 

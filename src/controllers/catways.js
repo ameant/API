@@ -5,7 +5,7 @@ const Catway = require("../models/catway");
  * @param {express.Response} res Objet de réponse Express utilisé pour envoyer la réponse au client
  * @returns {Liste}
  */
-exports.getCatways = async (res) => {
+exports.getCatways = async (req, res) => {
   try {
     const catways = await Catway.find();
     res.status(200).send(catways);

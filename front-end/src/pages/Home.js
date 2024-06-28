@@ -59,7 +59,7 @@ const Home = () => {
         <button type="submit">Se connecter</button>
       </form>
 
-      <p><a href="/docs">Voir la documentation de l'API</a></p>
+      <p><a href="http://localhost:3000/api-docs">Voir la documentation de l'API</a></p>
     </div>
   );
 };

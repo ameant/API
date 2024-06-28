@@ -7,7 +7,6 @@ import Catway from "./pages/Catway";
 import Reservation from "./pages/Reservation";
 import Catways from "./pages/Catways";
 import Reservations from "./pages/Reservations";
-import Documentation from "./pages/Documentation";
 
 function App() {
   return (
@@ -19,7 +18,6 @@ function App() {
         <Route path="/reservations/:id" element={<Reservation />}></Route>
         <Route path="/catways" element={<Catways />}></Route>
         <Route path="/reservations" element={<Reservations />}></Route>
-        <Route path="/docs" element={<Documentation />}></Route>
       </Routes>
     </div>
   );

@@ -104,6 +104,19 @@ const Dashboard = () => {
     }
   };
 
+  const handlePartialUpdateCatway = async (event) => {
+    event.preventDefault();
+    const { id } = catwayFormData;
+    if (!id) return alert("ID du catway manquant");
+
+    try {
+      await axios.patch(`http://localhost:3000/catways/${id}`, catwayFormData);
+      alert(`Etat du catway mis à jour`);
+    } catch (error) {
+      alert("Erreur lors de la mise à jour de l'état du catway");
+    }
+  };
+
   const handleDeleteCatway = async (event) => {
     event.preventDefault();
     const { id } = catwayFormData;
@@ -296,7 +309,7 @@ const Dashboard = () => {
         <input
           type="text"
           name="type"
-          placeholder="Type"
+          placeholder="Type (court ou long)"
           onChange={(e) =>
             setCatwayFormData({
               ...catwayFormData,
@@ -307,7 +320,7 @@ const Dashboard = () => {
         <input
           type="text"
           name="catwayState"
-          placeholder="État"
+          placeholder="disponible ou indisponible"
           onChange={(e) =>
             setCatwayFormData({
               ...catwayFormData,
@@ -318,7 +331,7 @@ const Dashboard = () => {
         <button type="submit">Créer</button>
       </form>
 
-      {/* Formulaire de mise à jour d'un Catway */}
+      {/* Formulaire de mise à jour d'un catway */}
       <form onSubmit={handleUpdateCatway}>
         <h2>Modifier un catway</h2>
         <input
@@ -351,6 +364,34 @@ const Dashboard = () => {
             setCatwayFormData({
               ...catwayFormData,
               type: e.target.value,
+            })
+          }
+        />
+        <input
+          type="text"
+          name="catwayState"
+          placeholder="Nouvel état"
+          onChange={(e) =>
+            setCatwayFormData({
+              ...catwayFormData,
+              catwayState: e.target.value,
+            })
+          }
+        />
+        <button type="submit">Modifier</button>
+      </form>
+
+      {/* Formulaire de mise à jour partielle d'un catway */}
+      <form onSubmit={handlePartialUpdateCatway}>
+        <h2>Modifier l'état d'un catway</h2>
+        <input
+          type="text"
+          name="id"
+          placeholder="ID"
+          onChange={(e) =>
+            setCatwayFormData({
+              ...catwayFormData,
+              id: e.target.value,
             })
           }
         />
