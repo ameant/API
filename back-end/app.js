@@ -31,9 +31,11 @@ const options = {
     },
     servers: [
       {
-        url: ['http://localhost:3000', 'https://port-de-plaisance-russell-api.onrender.com'],
-
+        url: 'http://localhost:3000'
       },
+      {
+        url: 'https://port-de-plaisance-russell-api.onrender.com'
+      }
     ],
   },
   apis: ['./src/routes/*.js'],
