@@ -37,7 +37,7 @@ const Dashboard = () => {
     event.preventDefault();
     try {
       const token = Cookies.get("token");
-      await axios.post("/users/add", userFormData, {
+      await axios.post("https://port-de-plaisance-russell-api.onrender.com/users/add", userFormData, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -53,7 +53,7 @@ const Dashboard = () => {
     if (!id) return alert("ID de l'utilisateur manquant");
 
     try {
-      await axios.put(`/users/${id}`, editUserFormData);
+      await axios.put(`https://port-de-plaisance-russell-api.onrender.com/users/${id}`, editUserFormData);
       alert(`Modification effectuée`);
     } catch (error) {
       alert("Erreur lors de la modification");
@@ -67,7 +67,7 @@ const Dashboard = () => {
 
     try {
       const token = Cookies.get("token");
-      await axios.delete(`/users/${id}`, {
+      await axios.delete(`https://port-de-plaisance-russell-api.onrender.com/users/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -81,7 +81,7 @@ const Dashboard = () => {
     event.preventDefault();
     try {
       const token = Cookies.get("token");
-      await axios.post("/catways", catwayFormData, {
+      await axios.post("https://port-de-plaisance-russell-api.onrender.com/catways", catwayFormData, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -97,7 +97,7 @@ const Dashboard = () => {
     if (!id) return alert("ID du catway manquant");
 
     try {
-      await axios.put(`/catways/${id}`, catwayFormData);
+      await axios.put(`https://port-de-plaisance-russell-api.onrender.com/catways/${id}`, catwayFormData);
       alert(`Catway mis à jour`);
     } catch (error) {
       alert("Erreur lors de la mise à jour du catway");
@@ -110,7 +110,7 @@ const Dashboard = () => {
     if (!id) return alert("ID du catway manquant");
 
     try {
-      await axios.patch(`/catways/${id}`, catwayFormData);
+      await axios.patch(`https://port-de-plaisance-russell-api.onrender.com/catways/${id}`, catwayFormData);
       alert(`Etat du catway mis à jour`);
     } catch (error) {
       alert("Erreur lors de la mise à jour de l'état du catway");
@@ -124,7 +124,7 @@ const Dashboard = () => {
 
     try {
       const token = Cookies.get("token");
-      await axios.delete(`/catways/${id}`, {
+      await axios.delete(`https://port-de-plaisance-russell-api.onrender.com/catways/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -140,7 +140,7 @@ const Dashboard = () => {
     if (!id) return alert("ID du catway manquant");
 
     try {
-      const response = await axios.get(`/catways/${id}`);
+      const response = await axios.get(`https://port-de-plaisance-russell-api.onrender.com/catways/${id}`);
       if (response.data) {
         navigate(`/catways/${id}`);
       } else {
@@ -156,7 +156,7 @@ const Dashboard = () => {
     try {
       const token = Cookies.get("token");
       await axios.post(
-        "/reservations",
+        "https://port-de-plaisance-russell-api.onrender.com/reservations",
         reservationFormData,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -176,7 +176,7 @@ const Dashboard = () => {
 
     try {
       const token = Cookies.get("token");
-      await axios.delete(`/reservations/${id}`, {
+      await axios.delete(`https://port-de-plaisance-russell-api.onrender.com/reservations/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -193,7 +193,7 @@ const Dashboard = () => {
 
     try {
       const response = await axios.get(
-        `/reservations/${id}`
+        `https://port-de-plaisance-russell-api.onrender.com/reservations/${id}`
       );
       if (response.data) {
         navigate(`/catways/reservations/${id}`);
@@ -552,12 +552,12 @@ const Dashboard = () => {
 
       {/* Liens pour accéder aux listes */}
       <p>
-        <a href="/catways">
+        <a href="https://port-de-plaisance-russell-api.onrender.com/catways">
           Accéder à la liste des catways
         </a>
       </p>
       <p>
-        <a href="/reservations">
+        <a href="https://port-de-plaisance-russell-api.onrender.com/reservations">
           Accéder à la liste des réservations
         </a>
       </p>

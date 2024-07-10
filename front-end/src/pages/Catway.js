@@ -11,7 +11,7 @@ const Catway = () => {
   useEffect(() => {
     const fetchCatwayDetails = async () => {
       try {
-        const response = await axios.get(`/catways/${id}`);
+        const response = await axios.get(`https://port-de-plaisance-russell-api.onrender.com/catways/${id}`);
         setCatway(response.data);
       } catch (error) {
         setError("Erreur lors de la récupération des détails du catway");
