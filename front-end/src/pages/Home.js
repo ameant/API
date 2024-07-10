@@ -59,7 +59,7 @@ const Home = () => {
         <button type="submit">Se connecter</button>
       </form>
 
-      <p><a href="/api-docs">Voir la documentation de l'API</a></p>
+      <p><a href="https://port-de-plaisance-russell/api-docs.onrender.com">Voir la documentation de l'API</a></p>
     </div>
   );
 };
