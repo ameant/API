@@ -7,7 +7,7 @@ const Catways = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://port-de-plaisance-russell-api.onrender.com/catways");
+        const response = await axios.get("/catways");
         setCatways(response.data);
       } catch (err) {
         alert("Erreur lors de l'affichage de la liste des catways");

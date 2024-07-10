@@ -7,7 +7,7 @@ const Reservations = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://port-de-plaisance-russell-api.onrender.com/reservations");
+        const response = await axios.get("/reservations");
         setReservations(response.data);
       } catch (err) {
         alert("Erreur lors de l'affichage de la liste des réservations");
