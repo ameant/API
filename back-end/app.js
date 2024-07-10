@@ -12,7 +12,7 @@ mongodb.initClientDbConnection();
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3001',
+  origin: ['http://localhost:3001', 'https://port-de-plaisance-russell.onrender.com'],
   credentials: true
 }));
 
