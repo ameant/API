@@ -11,7 +11,7 @@ const Reservation = () => {
   useEffect(() => {
     const fetchReservationDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/reservations/${id}`);
+        const response = await axios.get(`/reservations/${id}`);
         setReservation(response.data);
       } catch (error) {
         setError("Erreur lors de la récupération des détails de la réservation");

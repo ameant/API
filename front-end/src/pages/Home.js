@@ -11,7 +11,7 @@ const Home = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/auth/login', 
+      const response = await axios.post('/auth/login', 
         { email, password },
         { withCredentials: true }
       );
@@ -59,7 +59,7 @@ const Home = () => {
         <button type="submit">Se connecter</button>
       </form>
 
-      <p><a href="http://localhost:3000/api-docs">Voir la documentation de l'API</a></p>
+      <p><a href="/api-docs">Voir la documentation de l'API</a></p>
     </div>
   );
 };

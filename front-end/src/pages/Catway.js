@@ -11,7 +11,7 @@ const Catway = () => {
   useEffect(() => {
     const fetchCatwayDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/catways/${id}`);
+        const response = await axios.get(`/catways/${id}`);
         setCatway(response.data);
       } catch (error) {
         setError("Erreur lors de la récupération des détails du catway");
