@@ -11,7 +11,7 @@ const Home = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('/auth/login', 
+      const response = await axios.post('https://port-de-plaisance-russell-api.onrender.com/auth/login', 
         { email, password },
         { withCredentials: true }
       );
