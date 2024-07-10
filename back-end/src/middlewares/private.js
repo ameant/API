@@ -15,18 +15,22 @@ exports.checkJWT = async (req, res, next) => {
     let token;
     
     if (req.cookies && req.cookies.token) {
+      console.log('Cookie token found');
       token = req.cookies.token;
     } 
 
     else if (req.headers && req.headers.authorization) {
       const authorization = req.headers.authorization;
       if (authorization.startsWith('Bearer ')) {
+        console.log('Authorization header found');
         token = authorization.split(' ')[1];
       }
     }
 
     if (token) {
+      console.log('Token found: ', token);
       const decoded = jwt.verify(token, process.env.SECRET_KEY);
+      console.log('Token decoded: ', decoded);
 
       const user = await User.findById(decoded.userId);
       if (!user) {
@@ -39,6 +43,7 @@ exports.checkJWT = async (req, res, next) => {
       res.status(401).json({ success: false, message: 'Accès non autorisé' });
     }
   } catch (error) {
+    console.error('Error in checkJWT:', error);
     if (error.name === 'JsonWebTokenError') {
     } else {
       res.status(401).json({ success: false, message: 'Accès non autorisé' });
