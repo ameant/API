@@ -11,7 +11,7 @@ const Reservation = () => {
   useEffect(() => {
     const fetchReservationDetails = async () => {
       try {
-        const response = await axios.get(`https://port-de-plaisance-russell.onrender.com/reservations/${id}`);
+        const response = await axios.get(`http://localhost:3000/reservations/${id}`);
         setReservation(response.data);
       } catch (error) {
         setError("Erreur lors de la récupération des détails de la réservation");

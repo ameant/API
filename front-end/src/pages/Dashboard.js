@@ -37,7 +37,7 @@ const Dashboard = () => {
     event.preventDefault();
     try {
       const token = Cookies.get("token");
-      await axios.post("https://port-de-plaisance-russell.onrender.com/users/add", userFormData, {
+      await axios.post("http://localhost:3000/users/add", userFormData, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -53,7 +53,7 @@ const Dashboard = () => {
     if (!id) return alert("ID de l'utilisateur manquant");
 
     try {
-      await axios.put(`https://port-de-plaisance-russell.onrender.com/users/${id}`, editUserFormData);
+      await axios.put(`http://localhost:3000/users/${id}`, editUserFormData);
       alert(`Modification effectuée`);
     } catch (error) {
       alert("Erreur lors de la modification");
@@ -67,7 +67,7 @@ const Dashboard = () => {
 
     try {
       const token = Cookies.get("token");
-      await axios.delete(`https://port-de-plaisance-russell.onrender.com/users/${id}`, {
+      await axios.delete(`http://localhost:3000/users/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -81,7 +81,7 @@ const Dashboard = () => {
     event.preventDefault();
     try {
       const token = Cookies.get("token");
-      await axios.post("https://port-de-plaisance-russell.onrender.com/catways", catwayFormData, {
+      await axios.post("http://localhost:3000/catways", catwayFormData, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -97,7 +97,7 @@ const Dashboard = () => {
     if (!id) return alert("ID du catway manquant");
 
     try {
-      await axios.put(`https://port-de-plaisance-russell.onrender.com/catways/${id}`, catwayFormData);
+      await axios.put(`http://localhost:3000/catways/${id}`, catwayFormData);
       alert(`Catway mis à jour`);
     } catch (error) {
       alert("Erreur lors de la mise à jour du catway");
@@ -110,7 +110,7 @@ const Dashboard = () => {
     if (!id) return alert("ID du catway manquant");
 
     try {
-      await axios.patch(`https://port-de-plaisance-russell.onrender.com/catways/${id}`, catwayFormData);
+      await axios.patch(`http://localhost:3000/catways/${id}`, catwayFormData);
       alert(`Etat du catway mis à jour`);
     } catch (error) {
       alert("Erreur lors de la mise à jour de l'état du catway");
@@ -124,7 +124,7 @@ const Dashboard = () => {
 
     try {
       const token = Cookies.get("token");
-      await axios.delete(`https://port-de-plaisance-russell.onrender.com/catways/${id}`, {
+      await axios.delete(`http://localhost:3000/catways/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -140,7 +140,7 @@ const Dashboard = () => {
     if (!id) return alert("ID du catway manquant");
 
     try {
-      const response = await axios.get(`https://port-de-plaisance-russell.onrender.com/catways/${id}`);
+      const response = await axios.get(`http://localhost:3000/catways/${id}`);
       if (response.data) {
         navigate(`/catways/${id}`);
       } else {
@@ -156,7 +156,7 @@ const Dashboard = () => {
     try {
       const token = Cookies.get("token");
       await axios.post(
-        "https://port-de-plaisance-russell.onrender.com/reservations",
+        "http://localhost:3000/reservations",
         reservationFormData,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -176,7 +176,7 @@ const Dashboard = () => {
 
     try {
       const token = Cookies.get("token");
-      await axios.delete(`https://port-de-plaisance-russell.onrender.com/reservations/${id}`, {
+      await axios.delete(`http://localhost:3000/reservations/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -193,7 +193,7 @@ const Dashboard = () => {
 
     try {
       const response = await axios.get(
-        `https://port-de-plaisance-russell.onrender.com/reservations/${id}`
+        `http://localhost:3000/reservations/${id}`
       );
       if (response.data) {
         navigate(`/catways/reservations/${id}`);
@@ -552,12 +552,12 @@ const Dashboard = () => {
 
       {/* Liens pour accéder aux listes */}
       <p>
-        <a href="https://port-de-plaisance-russell.onrender.com/catways">
+        <a href="http://localhost:3000/catways">
           Accéder à la liste des catways
         </a>
       </p>
       <p>
-        <a href="https://port-de-plaisance-russell.onrender.com/reservations">
+        <a href="http://localhost:3000/reservations">
           Accéder à la liste des réservations
         </a>
       </p>
