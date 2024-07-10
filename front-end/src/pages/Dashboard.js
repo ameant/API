@@ -552,12 +552,12 @@ const Dashboard = () => {
 
       {/* Liens pour accéder aux listes */}
       <p>
-        <a href="https://port-de-plaisance-russell-api.onrender.com/catways">
+        <a href="https://port-de-plaisance-russell.onrender.com/catways">
           Accéder à la liste des catways
         </a>
       </p>
       <p>
-        <a href="https://port-de-plaisance-russell-api.onrender.com/reservations">
+        <a href="https://port-de-plaisance-russell.onrender.com/reservations">
           Accéder à la liste des réservations
         </a>
       </p>
